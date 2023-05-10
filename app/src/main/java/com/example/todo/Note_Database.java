@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 public abstract class Note_Database extends RoomDatabase {
 
     private static Note_Database note_instance;
+    public abstract Note_Dao note_dao();
     public static synchronized Note_Database getInstance(Context context)
     {
         if (note_instance == null)
