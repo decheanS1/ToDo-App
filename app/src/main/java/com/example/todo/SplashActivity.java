@@ -12,6 +12,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getSupportActionBar().hide(); // hides the toolbar on splash screen
 
        /*  handler to start the Main-Activity
          and close this splash screen after certain seconds

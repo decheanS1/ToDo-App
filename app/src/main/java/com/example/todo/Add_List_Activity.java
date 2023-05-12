@@ -31,9 +31,12 @@ public class Add_List_Activity extends AppCompatActivity {
             }
         });
 
-
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(Add_List_Activity.this, MainActivity.class));
+    }
 }
