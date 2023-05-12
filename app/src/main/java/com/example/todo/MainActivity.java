@@ -2,7 +2,9 @@ package com.example.todo;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.todo.databinding.ActivityMainBinding;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Add_List_Activity.class);
                 startActivityForResult(intent, 1);  // calls the activity result
+            }
+        });
+
+
+        binding.myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.myRecyclerView.setHasFixedSize(true);
+
+        RV_Adapter adapter = new RV_Adapter();
+        binding.myRecyclerView.setAdapter(adapter);
+
+        note_viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                adapter.submitList(notes);
             }
         });
     }
