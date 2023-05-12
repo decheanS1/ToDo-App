@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Add_List_Activity.class);
+                intent.putExtra("type", "addTask");
                 startActivityForResult(intent, 1);  // calls the activity result
             }
         });
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         binding.myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.myRecyclerView.setHasFixedSize(true);
 
-        RV_Adapter adapter = new RV_Adapter();
+        RV_Adapter adapter = new RV_Adapter(MainActivity.this);
         binding.myRecyclerView.setAdapter(adapter);
 
         note_viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
@@ -63,9 +64,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                note_viewModel.delete(adapter.getNote(viewHolder.getAdapterPosition()));
+
+                if (direction == ItemTouchHelper.RIGHT)
+                {
+                    note_viewModel.delete(adapter.getNote(viewHolder.getAdapterPosition()));
+                    Toast.makeText(MainActivity.this, "Note deleted", Toast.LENGTH_SHORT).show();
+                }
+                else { // for updating - goes from mainactivity to addlistactivity
+                    Intent intent = new Intent(MainActivity.this, Add_List_Activity.class);
+                    intent.putExtra("type", "update");
+                    intent.putExtra("id", adapter.getNote(viewHolder.getAdapterPosition()).getId());
+                    intent.putExtra("title", adapter.getNote(viewHolder.getAdapterPosition()).getTitle());
+                    intent.putExtra("descp", adapter.getNote(viewHolder.getAdapterPosition()).getDescription());
+                    startActivityForResult(intent, 2);
+                }
+
+
+
             }
+
+
         }).attachToRecyclerView(binding.myRecyclerView);
+
+
 
     }
 
@@ -82,7 +103,17 @@ public class MainActivity extends AppCompatActivity {
             note_viewModel.insert(note);
             Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
 
+        } else if (requestCode == 2) {
+            String title = data.getStringExtra("title");
+            String descp = data.getStringExtra("descp");
+            Note note = new Note(title, descp);
+            note.setId(data.getIntExtra("id",0));
+            note_viewModel.update(note);
+            Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
+
         }
+
+
     }
 
 

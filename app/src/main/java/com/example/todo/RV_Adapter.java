@@ -1,5 +1,6 @@
 package com.example.todo;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,11 @@ import com.example.todo.databinding.RecyclerViewRowBinding;
 
 public class RV_Adapter extends ListAdapter<Note, RV_Adapter.ViewHolder> {
 
-    public RV_Adapter()
+    private Context context;
+    public RV_Adapter(Context context)
     {
         super(CALLBACK);
+        this.context = context;
     }
 
     private static final DiffUtil.ItemCallback<Note> CALLBACK = new DiffUtil.ItemCallback<Note>() {

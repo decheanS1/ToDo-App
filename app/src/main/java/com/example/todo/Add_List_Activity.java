@@ -18,18 +18,47 @@ public class Add_List_Activity extends AppCompatActivity {
         binding = ActivityAddListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.addbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("title", binding.addTitle.getText().toString());
-                intent.putExtra("descp", binding.addDetails.getText().toString());
+        String type = getIntent().getStringExtra("type");
+        if (type.equals("update")){
+            setTitle("Update Task");
+            int id = getIntent().getIntExtra("id",0);
+            binding.addTitle.setText(getIntent().getStringExtra("title"));
+            binding.addDetails.setText(getIntent().getStringExtra("descp"));
 
-                setResult(RESULT_OK, intent);
-                finish();
+            binding.addbtn.setText("Update Task");
+            // when update btn is clicked, updates the data
+            binding.addbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("title", binding.addTitle.getText().toString());
+                    intent.putExtra("descp", binding.addDetails.getText().toString());
 
-            }
-        });
+                    intent.putExtra("id", id); // send the value of old id
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            });
+
+        }
+        else {
+            setTitle("Add Task");
+            binding.addbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("title", binding.addTitle.getText().toString());
+                    intent.putExtra("descp", binding.addDetails.getText().toString());
+
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                }
+            });
+        }
+
+
+
 
     }
 
