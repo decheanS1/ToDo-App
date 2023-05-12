@@ -37,15 +37,80 @@
         android:id="@+id/addbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/rounded_login_ui"
         android:text="Save"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/addDetails"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_group" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Priority"
+        app:layout_constraintStart_toStartOf="@+id/addDetails"
+        app:layout_constraintTop_toBottomOf="@+id/addDetails" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        >
+
+        <RadioButton
+            android:id="@+id/high"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="4dp"
+            android:background="#F44336"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="High"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="268dp" />
+
+        <RadioButton
+            android:id="@+id/med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="4dp"
+            android:background="#A9FFEB3B"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="Medium"
+            android:textAlignment="center"
+            android:textColor="#F8000000"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="4dp"
+            android:background="#8BC34A"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="Low"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="240dp"
+            tools:layout_editor_absoluteY="268dp" />
+
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

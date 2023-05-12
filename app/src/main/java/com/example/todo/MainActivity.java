@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 else { // for updating - goes from mainactivity to addlistactivity
                     Intent intent = new Intent(MainActivity.this, Add_List_Activity.class);
                     intent.putExtra("type", "update");
+                    intent.putExtra("priority", adapter.getNote(viewHolder.getAdapterPosition()).getPriority());
                     intent.putExtra("id", adapter.getNote(viewHolder.getAdapterPosition()).getId());
                     intent.putExtra("title", adapter.getNote(viewHolder.getAdapterPosition()).getTitle());
                     intent.putExtra("descp", adapter.getNote(viewHolder.getAdapterPosition()).getDescription());
@@ -99,19 +100,25 @@ public class MainActivity extends AppCompatActivity {
         {
             String title = data.getStringExtra("title");
             String descp = data.getStringExtra("descp");
-            Note note = new Note(title, descp);
+            int priority = data.getIntExtra("priority",0);
+
+            Note note = new Note(title, descp,priority);
             note_viewModel.insert(note);
             Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show();
 
         } else if (requestCode == 2) {
             String title = data.getStringExtra("title");
             String descp = data.getStringExtra("descp");
-            Note note = new Note(title, descp);
+            int priority = data.getIntExtra("priority", 0);
+
+            Note note = new Note(title, descp, priority);
             note.setId(data.getIntExtra("id",0));
             note_viewModel.update(note);
             Toast.makeText(this, "Note updated", Toast.LENGTH_SHORT).show();
 
         }
+
+
 
 
     }

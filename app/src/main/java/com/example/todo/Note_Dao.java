@@ -12,6 +12,10 @@ import java.util.List;
 // how to handle the data - crud operations are defined here
 @Dao
 public interface Note_Dao {
+
+  @Query("SELECT * FROM my_notes ORDER BY priority")
+    public LiveData<List<Note>> getAllData();
+
     @Insert
     public void insert(Note note);
 
@@ -21,8 +25,7 @@ public interface Note_Dao {
     @Delete
     public void delete(Note note);
 
-    @Query("SELECT * FROM my_notes")
-    public LiveData<List<Note>> getAllData();
+
 
 
 
